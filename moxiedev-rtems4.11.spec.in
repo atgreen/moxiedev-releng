@@ -1,0 +1,108 @@
+%define debug_package %{nil}
+%define __debug_install_post {true;}
+%define _use_internal_dependency_generator 0
+
+%define _prefix /opt/moxiedev
+%define _sysconfdir /opt/moxiedev/etc
+
+Name:		moxiedev-rtems4.11
+Version:	@VERSION@
+Release:	0.@BUILDNUM@%{?dist}
+Summary:	RTEMS port for the moxie processor core
+
+Group:		Development/Tools
+License:	GPL
+URL:		http://moxielogic.org
+Source0:	rtems.tar.gz
+
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Requires:       moxiedev-moxie-rtems-gcc moxiedev-moxie-rtems-newlib
+BuildRequires:  moxiedev-moxie-rtems-gcc moxiedev-moxie-rtems-newlib
+
+%description 
+RTEMS is a real-time embedded operating system.  This is a port of
+RTEMS to the moxie core.
+
+%prep
+%setup -q -n rtems
+
+# Extract %%__os_install_post into os_install_post~
+cat << \EOF > os_install_post~
+%__os_install_post
+EOF
+
+# Generate customized brp-*scripts
+cat os_install_post~ | while read a x y; do
+case $a in
+# Prevent brp-strip* from trying to handle foreign binaries 
+*/brp-strip*)
+  b=$(basename $a)
+  sed -e 's,find $RPM_BUILD_ROOT,find $RPM_BUILD_ROOT%_bindir $RPM_BUILD_ROOT%_libexecdir,' $a > $b
+  chmod a+x $b
+  ;;
+esac
+done
+
+sed -e 's,^[ ]*/usr/lib/rpm.*/brp-strip,./brp-strip,' \
+< os_install_post~ > os_install_post
+
+%build
+PATH=%{_prefix}/bin:$PATH
+mkdir moxie-build
+ls
+cd moxie-build
+`pwd`/../configure --prefix=%_prefix \
+		--exec-prefix=%_exec_prefix \
+		--bindir=%_bindir \
+		--sbindir=%_sbindir \
+		--sysconfdir=%_sysconfdir \
+		--datadir=%_datadir \
+		--includedir=%_includedir \
+		--libdir=%_libdir \
+		--libexecdir=%_libexecdir \
+		--localstatedir=%_localstatedir \
+		--sharedstatedir=%_sharedstatedir \
+		--mandir=%_mandir \
+		--infodir=%_infodir \
+		--target=moxie-rtems \
+		--enable-testsuites=samples
+
+make RTEMS_BSP="marin moxiesim"
+
+
+%install
+PATH=%{_prefix}/bin:$PATH
+rm -rf $RPM_BUILD_ROOT
+#mkdir -p $RPM_BUILD_ROOT/usr/moxie-rtems/lib
+(cd moxie-build;
+make %{?_smp_mflags} install DESTDIR=$RPM_BUILD_ROOT RTEMS_BSP="marin moxiesim")
+
+# Move pkgconfig file to correct directory.
+mkdir -p $RPM_BUILD_ROOT%{_libdir}
+mv $RPM_BUILD_ROOT%{_prefix}/lib/pkgconfig $RPM_BUILD_ROOT%{_libdir}
+
+# Move man pages.
+# mkdir -p $RPM_BUILD_ROOT/%{_datadir}/doc/moxie-rtems
+# mv $RPM_BUILD_ROOT/usr/share/man $RPM_BUILD_ROOT/%{_datadir}/doc/moxie-rtems
+
+%define __os_install_post . ./os_install_post
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%doc COPYING LICENSE* MAINTAINERS README* SUPPORT VERSION
+%dir %{_prefix}/make
+%{_prefix}/moxie-rtems
+%{_bindir}/*
+%{_libdir}/pkgconfig/moxie-rtems-marin.pc
+%{_libdir}/pkgconfig/moxie-rtems-moxiesim.pc
+%{_prefix}/make/*
+%{_mandir}/*
+%{_prefix}/share/rtems4.11
+
+%changelog
+* @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1
+- Created.
