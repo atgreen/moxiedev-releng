@@ -17,7 +17,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	moxiedev-moxie-rtems-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel libmpc-devel zlib-devel
 BuildRequires: mpfr-devel
-Requires:	moxiedev-moxie-rtems-binutils
+Requires:	moxiedev-moxie-rtems-binutils moxiedev-moxie-elf-gcc-fsf-man-pages
 %if %{with_newlib} == 1
 BuildRequires:	moxiedev-moxie-rtems-newlib
 Requires:	moxiedev-moxie-rtems-newlib
@@ -107,6 +107,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 cd ..
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_infodir
+rm -rf $RPM_BUILD_ROOT%{_mandir}/man7/*
 # rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %define __os_install_post . ./os_install_post
@@ -125,7 +126,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gcc/moxie-rtems
 %{_prefix}/libexec/gcc/moxie-rtems
 %{_mandir}/man1/*
-%{_mandir}/man7/*
 %doc COPYING*
 
 %if %{with_newlib} == 1

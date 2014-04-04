@@ -17,7 +17,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	moxiedev-moxie-elf-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel libmpc-devel zlib-devel
 BuildRequires:  mpfr-devel
-Requires:	moxiedev-moxie-elf-binutils
+Requires:	moxiedev-moxie-elf-binutils moxiedev-moxie-elf-gcc-fsf-man-pages
 %if %{with_newlib} == 1
 BuildRequires:	moxiedev-moxie-elf-newlib
 Requires:	moxiedev-moxie-elf-newlib
@@ -43,6 +43,9 @@ Requires: moxiedev-moxie-elf-gcc-c++
 %description libstdc++
 C++ runtime library for the moxie core.
 %endif
+
+%description fsf-man-pages
+Common man pages related to the FSF.
 
 %prep
 %setup -q -n gcc
@@ -125,7 +128,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gcc/moxie-elf
 %{_prefix}/libexec/gcc/moxie-elf
 %{_mandir}/man1/*
-%{_mandir}/man7/*
 %doc COPYING*
 
 %if %{with_newlib} == 1
@@ -139,6 +141,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/moxie-elf
 %{_datadir}/gcc*
 %endif
+
+%files fsf-man-pages
+%{_mandir}/man7/*
 
 %changelog
 * @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1
