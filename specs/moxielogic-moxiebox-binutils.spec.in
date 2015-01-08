@@ -1,30 +1,28 @@
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-moxie-elf-binutils
+Name:		moxielogic-moxiebox-binutils
 Version:	@VERSION@
 Release:	0.@BUILDNUM@%{?dist}
-Summary:	The GNU binutils for the moxie core
+Summary:	The GNU binutils for moxiebox development
 
 Group:		Development/Tools
 License:	GPL
-URL:		http://moxielogic.com/blog
+URL:		http://moxielogic.org
 Source0:	moxie-binutils.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	texinfo bison flex zlib-devel
 
 %description
-Binutils is a collection of binary utilities, including ar (for
-creating, modifying and extracting from archives), as (a family of GNU
-assemblers), gprof (for displaying call graph profile data), ld (the
-GNU linker), nm (for listing symbols from object files), objcopy (for
-copying and translating object files), objdump (for displaying
-information from object files), ranlib (for generating an index for
-the contents of an archive), readelf (for displaying detailed
-information about binary files), size (for listing the section sizes
-of an object or archive file), strings (for listing printable strings
-from files), strip (for discarding symbols), and addr2line (for
-converting addresses to file and line).
+binutils is a collection of binary utilities, including ar (for creating,
+modifying and extracting from archives), nm (for listing symbols from
+object files), objcopy (for copying and translating object files),
+objdump (for displaying information from object files), ranlib (for
+generating an index for the contents of an archive), size (for listing
+the section sizes of an object or archive file), strings (for listing
+printable strings from files), strip (for discarding symbols), c++filt
+(a filter for demangling encoded C++ symbols), addr2line (for converting
+addresses to file and line).
 
 %prep
 %setup -q -n binutils-gdb
@@ -46,7 +44,7 @@ CFLAGS="%optflags" ./configure \
 		   --mandir=%_mandir \
 		   --infodir=%_infodir \
 		   --enable-shared \
-		   --target=moxie-elf
+		   --target=moxiebox
 %__make tooldir=%_prefix all info
 
 %install
@@ -63,8 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
-%{_prefix}/moxie-elf
-%{_prefix}/*/moxie-elf
+%{_prefix}/moxiebox
+%{_prefix}/*/moxiebox
 %{_mandir}/man1/*
 %doc COPYING*
 

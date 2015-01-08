@@ -1,0 +1,68 @@
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
+
+Name:		moxielogic-moxiebox-gdb
+Version:	@VERSION@
+Release:	0.@BUILDNUM@%{?dist}
+Summary:	A GNU source-level debugger for C, C++ and other languages for moxiebox
+License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
+Group:          Development/Debuggers
+URL:		http://moxielogic.org
+Source0:	moxie-gdb.tar.gz
+Patch0:         gdb-no-dtb.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:	python-devel texinfo zlib-devel ncurses-devel flex bison
+
+%description
+GDB, the GNU debugger, allows you to debug programs written in C, C++,
+Java, and other languages, by executing them in a controlled fashion
+and printing their data.
+
+%prep
+%setup -q -n binutils-gdb
+%patch0 -p1
+
+%build
+CFLAGS="%optflags" ./configure \
+		   %_target_platform \
+		   --prefix=%_prefix \
+		   --exec-prefix=%_exec_prefix \
+		   --bindir=%_bindir \
+		   --sbindir=%_sbindir \
+		   --sysconfdir=%_sysconfdir \
+		   --datadir=%_datadir \
+		   --includedir=%_includedir \
+		   --libdir=%_libdir \
+		   --libexecdir=%_libexecdir \
+		   --localstatedir=%_localstatedir \
+		   --sharedstatedir=%_sharedstatedir \
+		   --mandir=%_mandir \
+		   --infodir=%_infodir \
+		   --enable-shared \
+		   --target=moxiebox
+%__make tooldir=%_prefix all info
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install-gdb DESTDIR=$RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT%_datadir/locale
+rm -rf $RPM_BUILD_ROOT%_infodir
+rm -rf $RPM_BUILD_ROOT%_libdir/*.a
+rm -rf $RPM_BUILD_ROOT%_includedir
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%defattr(-,root,root,-)
+%{_bindir}/*
+%{_datadir}/gdb*
+%{_mandir}/man1/*
+%{_mandir}/man5/*
+%doc COPYING*
+
+
+%changelog
+* @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1
+- Created.

@@ -1,26 +1,26 @@
 %define	with_newlib 1
 
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-moxie-rtems-gcc
+Name:		moxielogic-moxiebox-gcc
 Version:	@VERSION@
 Release:	0.@BUILDNUM@%{?dist}
 Summary:	The GNU Compiler Collection targeting moxie RTEMS
 
 Group:		Development
 License:	GPL
-URL:		http://moxielogic.com/blog
+URL:		http://moxielogic.org/
 Source0:	moxie-gcc.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:	moxiedev-moxie-rtems-binutils flex bison texinfo gperf 
+BuildRequires:	moxielogic-moxiebox-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel libmpc-devel zlib-devel
-BuildRequires: mpfr-devel
-Requires:	moxiedev-moxie-rtems-binutils moxiedev-moxie-elf-gcc-fsf-man-pages
+BuildRequires:  mpfr-devel
+Requires:	moxielogic-moxiebox-binutils moxielogic-moxie-elf-gcc-fsf-man-pages
 %if %{with_newlib} == 1
-BuildRequires:	moxiedev-moxie-rtems-newlib
-Requires:	moxiedev-moxie-rtems-newlib
+BuildRequires:	moxielogic-moxiebox-newlib
+Requires:	moxielogic-moxiebox-newlib
 %endif
 
 %description
@@ -30,7 +30,7 @@ The GNU Compiler Collection targeting the moxie core.
 %package c++
 Summary:  GNU C++ compiler for the moxie core
 Group:    Development
-Requires: moxiedev-moxie-rtems-binutils moxiedev-moxie-rtems-gcc
+Requires: moxielogic-moxiebox-binutils moxielogic-moxiebox-gcc
 
 %description c++
 GNU C++ compiler for the moxie core.
@@ -38,7 +38,7 @@ GNU C++ compiler for the moxie core.
 %package libstdc++
 Summary:  C++ runtime library for the moxie core
 Group:    Development/Libraries
-Requires: moxiedev-moxie-rtems-gcc-c++
+Requires: moxielogic-moxiebox-gcc-c++
 
 %description libstdc++
 C++ runtime library for the moxie core.
@@ -87,7 +87,7 @@ cd build
   --mandir=%_mandir \
   --infodir=%_infodir \
   --enable-shared \
-  --target=moxie-rtems \
+  --target=moxiebox \
 %if %{with_newlib} == 1
   --enable-languages=c,c++ \
   --with-newlib \
@@ -108,7 +108,8 @@ cd ..
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_infodir
 rm -rf $RPM_BUILD_ROOT%{_mandir}/man7/*
-# rm $RPM_BUILD_ROOT%{_libdir}/*.a
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/*.so*
 
 %define __os_install_post . ./os_install_post
 
@@ -120,23 +121,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/*
 %if %{with_newlib} == 1
-%exclude %{_bindir}/moxie-rtems-c++
-%exclude %{_bindir}/moxie-rtems-g++
+%exclude %{_bindir}/moxiebox-c++
+%exclude %{_bindir}/moxiebox-g++
 %endif
-%{_libdir}/gcc/moxie-rtems
-%{_prefix}/libexec/gcc/moxie-rtems
+%{_libdir}/gcc/moxiebox
+%{_prefix}/libexec/gcc/moxiebox
 %{_mandir}/man1/*
 %doc COPYING*
 
 %if %{with_newlib} == 1
 %files c++
 %defattr(-,root,root,-)
-%{_bindir}/moxie-rtems-c++
-%{_bindir}/moxie-rtems-g++
+%{_bindir}/moxiebox-c++
+%{_bindir}/moxiebox-g++
 
 %files libstdc++
 %defattr(-,root,root,-)
-%{_prefix}/moxie-rtems
+%{_prefix}/moxiebox
 %{_datadir}/gcc*
 %endif
 

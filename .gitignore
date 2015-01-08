@@ -1,0 +1,9 @@
+qemu
+qemu-moxie
+src
+binutils-gdb
+gcc
+RTEMS
+dist
+*~
+typescript

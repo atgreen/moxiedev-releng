@@ -2,10 +2,10 @@
 %define __debug_install_post {true;}
 %define _use_internal_dependency_generator 0
 
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-rtems4.11
+Name:		moxielogic-rtems4.11
 Version:	@VERSION@
 Release:	0.@BUILDNUM@%{?dist}
 Summary:	RTEMS port for the moxie processor core
@@ -17,15 +17,15 @@ Source0:	rtems.tar.gz
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       moxiedev-moxie-rtems-gcc moxiedev-moxie-rtems-newlib
-BuildRequires:  moxiedev-moxie-rtems-gcc moxiedev-moxie-rtems-newlib
+Requires:       moxielogic-moxie-rtems-gcc moxielogic-moxie-rtems-newlib
+BuildRequires:  moxielogic-moxie-rtems-gcc moxielogic-moxie-rtems-newlib
 
 %description 
 RTEMS is a real-time embedded operating system.  This is a port of
 RTEMS to the moxie core.
 
 %prep
-%setup -q -n rtems
+%setup -q -n RTEMS
 
 # Extract %%__os_install_post into os_install_post~
 cat << \EOF > os_install_post~

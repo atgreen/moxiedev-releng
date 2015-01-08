@@ -1,9 +1,9 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-moxie-elf-newlib
+Name:		moxielogic-moxie-elf-newlib
 Version:	@VERSION@
 Release:	0.@BUILDNUM@
 Summary:	An embedded C runtime library
@@ -15,8 +15,8 @@ Source0:	moxie-newlib.tar.gz
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       moxiedev-moxie-elf-gcc
-BuildRequires:  moxiedev-moxie-elf-gcc
+# Requires:       moxielogic-moxie-elf-gcc
+BuildRequires:  bootstrap-moxie-elf-gcc
 
 BuildArch:	noarch
 
@@ -69,7 +69,7 @@ make all-target-newlib all-target-libgloss
 %install
 PATH=%{_prefix}/bin:$PATH
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/opt/moxiedev/moxie-elf/lib/el
+mkdir -p $RPM_BUILD_ROOT/opt/moxielogic/moxie-elf/lib/el
 make install-target-libgloss install-target-newlib DESTDIR=$RPM_BUILD_ROOT
 
 %define __os_install_post . ./os_install_post

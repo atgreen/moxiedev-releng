@@ -1,9 +1,9 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-moxie-rtems-newlib
+Name:		moxielogic-moxiebox-newlib
 Version:	@VERSION@
 Release:	0.@BUILDNUM@
 Summary:	An embedded C runtime library
@@ -15,8 +15,9 @@ Source0:	moxie-newlib.tar.gz
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       moxiedev-moxie-rtems-gcc
-BuildRequires:  moxiedev-moxie-rtems-gcc
+# Requires:       moxielogic-moxiebox-gcc
+BuildRequires:  moxielogic-moxiebox-binutils
+BuildRequires:  moxielogic-moxie-elf-gcc
 
 BuildArch:	noarch
 
@@ -50,7 +51,8 @@ sed -e 's,^[ ]*/usr/lib/rpm.*/brp-strip,./brp-strip,' \
 
 %build
 PATH=%{_prefix}/bin:$PATH
-`pwd`/configure --prefix=%_prefix \
+CC_FOR_TARGET="moxie-elf-gcc -D__moxiebox__ -D_moxiebox_ -mmul.x"  `pwd`/configure --prefix=%_prefix \
+                --disable-multilib \
 		--exec-prefix=%_exec_prefix \
 		--bindir=%_bindir \
 		--sbindir=%_sbindir \
@@ -63,13 +65,13 @@ PATH=%{_prefix}/bin:$PATH
 		--sharedstatedir=%_sharedstatedir \
 		--mandir=%_mandir \
 		--infodir=%_infodir \
-		--target=moxie-rtems
-make all-target-newlib all-target-libgloss
+		--target=moxiebox
+CC_FOR_TARGET="moxie-elf-gcc -D__moxiebox__ -D_moxiebox_ -mmul.x" make all-target-newlib all-target-libgloss
 
 %install
 PATH=%{_prefix}/bin:$PATH
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/opt/moxiedev/moxie-rtems/lib/el
+mkdir -p $RPM_BUILD_ROOT/opt/moxielogic/moxiebox/lib
 make install-target-libgloss install-target-newlib DESTDIR=$RPM_BUILD_ROOT
 
 %define __os_install_post . ./os_install_post
@@ -79,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_prefix}/moxie-rtems
+%{_prefix}/moxiebox
 %doc COPYING* newlib/MAINTAINERS newlib/NEWS newlib/README
 
 %changelog

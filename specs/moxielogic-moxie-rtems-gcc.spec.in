@@ -1,26 +1,26 @@
 %define	with_newlib 1
 
-%define _prefix /opt/moxiedev
-%define _sysconfdir /opt/moxiedev/etc
+%define _prefix /opt/moxielogic
+%define _sysconfdir /opt/moxielogic/etc
 
-Name:		moxiedev-moxie-elf-gcc
+Name:		moxielogic-moxie-rtems-gcc
 Version:	@VERSION@
 Release:	0.@BUILDNUM@%{?dist}
-Summary:	The GNU Compiler Collection targeting the moxie core
+Summary:	The GNU Compiler Collection targeting moxie RTEMS
 
 Group:		Development
 License:	GPL
-URL:		http://moxielogic.com/blog
+URL:		http://moxielogic.org/
 Source0:	moxie-gcc.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:	moxiedev-moxie-elf-binutils flex bison texinfo gperf 
+BuildRequires:	moxielogic-moxie-rtems-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel libmpc-devel zlib-devel
 BuildRequires:  mpfr-devel
-Requires:	moxiedev-moxie-elf-binutils moxiedev-moxie-elf-gcc-fsf-man-pages
+Requires:	moxielogic-moxie-rtems-binutils moxielogic-moxie-elf-gcc-fsf-man-pages
 %if %{with_newlib} == 1
-BuildRequires:	moxiedev-moxie-elf-newlib
-Requires:	moxiedev-moxie-elf-newlib
+BuildRequires:	moxielogic-moxie-rtems-newlib
+Requires:	moxielogic-moxie-rtems-newlib
 %endif
 
 %description
@@ -30,7 +30,7 @@ The GNU Compiler Collection targeting the moxie core.
 %package c++
 Summary:  GNU C++ compiler for the moxie core
 Group:    Development
-Requires: moxiedev-moxie-elf-binutils moxiedev-moxie-elf-gcc
+Requires: moxielogic-moxie-rtems-binutils moxielogic-moxie-rtems-gcc
 
 %description c++
 GNU C++ compiler for the moxie core.
@@ -38,14 +38,11 @@ GNU C++ compiler for the moxie core.
 %package libstdc++
 Summary:  C++ runtime library for the moxie core
 Group:    Development/Libraries
-Requires: moxiedev-moxie-elf-gcc-c++
+Requires: moxielogic-moxie-rtems-gcc-c++
 
 %description libstdc++
 C++ runtime library for the moxie core.
 %endif
-
-%description fsf-man-pages
-Common man pages related to the FSF.
 
 %prep
 %setup -q -n gcc
@@ -90,7 +87,7 @@ cd build
   --mandir=%_mandir \
   --infodir=%_infodir \
   --enable-shared \
-  --target=moxie-elf \
+  --target=moxie-rtems \
 %if %{with_newlib} == 1
   --enable-languages=c,c++ \
   --with-newlib \
@@ -110,7 +107,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 cd ..
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_infodir
-# rm $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -rf $RPM_BUILD_ROOT%{_mandir}/man7/*
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/*.so*
 
 %define __os_install_post . ./os_install_post
 
@@ -122,28 +121,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/*
 %if %{with_newlib} == 1
-%exclude %{_bindir}/moxie-elf-c++
-%exclude %{_bindir}/moxie-elf-g++
+%exclude %{_bindir}/moxie-rtems-c++
+%exclude %{_bindir}/moxie-rtems-g++
 %endif
-%{_libdir}/gcc/moxie-elf
-%{_prefix}/libexec/gcc/moxie-elf
+%{_libdir}/gcc/moxie-rtems
+%{_prefix}/libexec/gcc/moxie-rtems
 %{_mandir}/man1/*
 %doc COPYING*
 
 %if %{with_newlib} == 1
 %files c++
 %defattr(-,root,root,-)
-%{_bindir}/moxie-elf-c++
-%{_bindir}/moxie-elf-g++
+%{_bindir}/moxie-rtems-c++
+%{_bindir}/moxie-rtems-g++
 
 %files libstdc++
 %defattr(-,root,root,-)
-%{_prefix}/moxie-elf
+%{_prefix}/moxie-rtems
 %{_datadir}/gcc*
 %endif
-
-%files fsf-man-pages
-%{_mandir}/man7/*
 
 %changelog
 * @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1
