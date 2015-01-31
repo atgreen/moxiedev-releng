@@ -1,6 +1,6 @@
 Name:		moxielogic-repo-TAG
 Version:	1
-Release:	3
+Release:	5
 Summary:	Moxie Logic Repository Configuration
 
 Group:		System Environment/Base
@@ -40,6 +40,12 @@ rm -rf $RPM_BUILD_ROOT
 /etc/pki/rpm-gpg/RPM*
 
 %changelog
+* Mon Jan 12 2015 Anthony Green <green@moxielogic.com> - 1-4
+- Update signing key.
+
+* Mon Jan 12 2015 Anthony Green <green@moxielogic.com> - 1-4
+- Add release tag to repo name
+
 * Thu Jan 08 2015 Anthony Green <green@moxielogic.com> - 1-3
 - Update signing key.
 

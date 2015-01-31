@@ -20,16 +20,16 @@
 
 # A basic script to download the upstream GNU toolchain sources.
 
-# svn checkout svn://gcc.gnu.org/svn/gcc/trunk gcc
+svn checkout svn://gcc.gnu.org/svn/gcc/trunk gcc
 
-# git clone --depth=1 git://sourceware.org/git/binutils-gdb.git
+git clone --depth=1 git://sourceware.org/git/binutils-gdb.git
 
-# cvs -z3 -d:pserver:anoncvs@sourceware.org:/cvs/src co \
-#    newlib \
-#    libgloss
+cvs -z3 -d:pserver:anoncvs@sourceware.org:/cvs/src co \
+   newlib \
+   libgloss
 
-#cp gcc/config.sub binutils-gdb
-#cp gcc/config.sub src
+cp gcc/config.sub binutils-gdb
+cp gcc/config.sub src
 
 git clone --depth=1 git://github.com/atgreen/RTEMS.git
 (cd RTEMS; ./bootstrap)

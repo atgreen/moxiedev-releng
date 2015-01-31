@@ -22,10 +22,10 @@ mkdir -p $REPO/RPMS/noarch
 mkdir -p $REPO/SRPMS
 createrepo $REPO
 
-PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc"
+PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc moxielogic-moxie-elf-gdb"
 
 for i in moxie-rtems moxiebox; do
-  PACKAGES="$PACKAGES moxielogic-$i-binutils moxielogic-$i-newlib moxielogic-$i-gcc";
+  PACKAGES="$PACKAGES moxielogic-$i-binutils moxielogic-$i-newlib moxielogic-$i-gcc moxielogic-$i-gdb";
 done;
 
 PACKAGES="moxielogic-repo-$TAG $PACKAGES"

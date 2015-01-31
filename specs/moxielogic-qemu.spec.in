@@ -18,7 +18,7 @@ Requires:	qemu qemu-img
 This is a port of qemu to the moxie core.
 
 %prep
-%setup -q -n qemu
+%setup -q -n qemu-moxie
 
 %build
 CFLAGS="%optflags" ./configure \

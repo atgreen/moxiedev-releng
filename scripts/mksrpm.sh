@@ -1,5 +1,11 @@
 #!/bin/sh
 set -x
+
+(cd binutils-gdb;
+date=`sed -n -e 's/^.* BFD_VERSION_DATE \(.*\)$/\1/p' bfd/version.h`;
+perl -p -i -e "s/DATE/$date/" gdb/version.in
+)
+
 BUILDNUM=`cat BUILDNUM`
 BUILDNUM=`expr $BUILDNUM + 1`
 echo $BUILDNUM > BUILDNUM
@@ -35,7 +41,7 @@ for i in moxie-elf moxie-rtems moxiebox; do
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-binutils.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gcc.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-newlib.spec
-  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-moxie-elf-gdb.spec
+  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gdb.spec
 done;
 
 cp specs/moxielogic-rtems4.11.spec.in dist/moxielogic-rtems4.11.spec

@@ -12,6 +12,7 @@ Source0:	moxie-gdb.tar.gz
 Patch0:         gdb-no-dtb.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	python-devel texinfo zlib-devel ncurses-devel flex bison
+Requires:	moxielogic-moxie-elf-gdb-common-%{version}-%{release}
 
 %description
 GDB, the GNU debugger, allows you to debug programs written in C, C++,
@@ -46,6 +47,7 @@ CFLAGS="%optflags" ./configure \
 rm -rf $RPM_BUILD_ROOT
 make install-gdb DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
+rm -rf $RPM_BUILD_ROOT%_datadir/gdb*
 rm -rf $RPM_BUILD_ROOT%_infodir
 rm -rf $RPM_BUILD_ROOT%_libdir/*.a
 rm -rf $RPM_BUILD_ROOT%_includedir
@@ -53,15 +55,12 @@ rm -rf $RPM_BUILD_ROOT%_includedir
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
-%{_datadir}/gdb*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %doc COPYING*
-
 
 %changelog
 * @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1

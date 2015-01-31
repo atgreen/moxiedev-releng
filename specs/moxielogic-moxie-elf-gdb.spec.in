@@ -13,11 +13,19 @@ Source0:	moxie-gdb.tar.gz
 Patch0:         gdb-no-dtb.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	python-devel texinfo zlib-devel ncurses-devel flex bison
+Requires:	moxielogic-moxie-elf-gdb-common-%{version}-%{release}
 
 %description
 GDB, the GNU debugger, allows you to debug programs written in C, C++,
 Java, and other languages, by executing them in a controlled fashion
 and printing their data.
+
+%package common
+Summary:  Common gdb support files for moxie ports
+Group:    Development/Debuggers
+
+%description common
+Common files between different moxie ports of gdb.
 
 %prep
 %setup -q -n binutils-gdb
@@ -58,11 +66,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
-%{_datadir}/gdb*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %doc COPYING*
 
+%files common
+%{_datadir}/gdb*
 
 %changelog
 * @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1
