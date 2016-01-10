@@ -5,13 +5,10 @@ set -x
 
 CPU=x86_64
 
-for TAG in f20 f21 el6 el7; do
+for TAG in el7; do
 
 case $TAG in #(
-  el6) TARGET=epel-6-$CPU;;
   el7) TARGET=epel-7-$CPU;;
-  f20) TARGET=fedora-20-$CPU;;
-  f21) TARGET=fedora-21-$CPU;;
 esac
   
 RESULTDIR=/var/lib/mock/$TARGET/result
