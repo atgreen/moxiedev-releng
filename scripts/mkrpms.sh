@@ -29,6 +29,8 @@ PACKAGES="moxielogic-repo-$TAG $PACKAGES"
 
 for i in $PACKAGES; do
   mock -r $TARGET dist/$i-[0-9]*src.rpm;
+  cp $RESULTDIR/root.log $REPO/$i-root.log;
+  cp $RESULTDIR/build.log $REPO/$i-build.log;
   FILE=`ls $RESULTDIR/$i-*.rpm | head -1`
   if test x$FILE != "x"; then
     rm $REPO/RPMS/noarch/$i-[0-9]*.rpm
