@@ -24,7 +24,7 @@ svn checkout -q svn://gcc.gnu.org/svn/gcc/trunk gcc
 
 git clone --depth=1 git://sourceware.org/git/binutils-gdb.git
 
-cvs -z3 -q -d:pserver:anoncvs@sourceware.org:/cvs/src co \
+cvs -z3 -Q -d:pserver:anoncvs@sourceware.org:/cvs/src co \
    newlib \
    libgloss
 
