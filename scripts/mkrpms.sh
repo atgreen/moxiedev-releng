@@ -28,6 +28,8 @@ done;
 PACKAGES="moxielogic-repo-$TAG $PACKAGES"
 
 for i in $PACKAGES; do
+  # scrub the yum cache because we probably just placed new content in $REPO 
+  mock --scrub=yum-cache
   mock -r $TARGET dist/$i-[0-9]*src.rpm;
   cp $RESULTDIR/root.log $REPO/$i-root.log;
   cp $RESULTDIR/build.log $REPO/$i-build.log;
