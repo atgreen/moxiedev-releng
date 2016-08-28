@@ -1,4 +1,4 @@
-%define	with_newlib 1
+%define	with_newlib 0
 
 %define _prefix /opt/moxielogic
 %define _sysconfdir /opt/moxielogic/etc
