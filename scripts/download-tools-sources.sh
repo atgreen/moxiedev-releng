@@ -2,7 +2,7 @@
 
 # download-tools-sources.sh
 #
-# Copyright (c) 2012, 2013, 2014  Anthony Green
+# Copyright (c) 2012, 2013, 2014, 2016  Anthony Green
 # 
 # The above named program is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License
@@ -20,13 +20,52 @@
 
 # A basic script to download the upstream GNU toolchain sources.
 
-svn checkout -q svn://gcc.gnu.org/svn/gcc/trunk gcc
 
-git clone --depth=1 git://sourceware.org/git/binutils-gdb.git
+RETRY_MAX=10
 
-cvs -z3 -Q -d:pserver:anoncvs@sourceware.org:/cvs/src co \
-   newlib \
-   libgloss
+echo "Downloading binutils sources..."
+RETRIES=$RETRY_MAX
+DELAY=10
+COUNT=1
+while [ $COUNT -lt $RETRIES ]; do
+  git clone http://sourceware.org/git/binutils-gdb.git
+  if [ $? -eq 0 ]; then
+      RETRIES=0
+      break
+  fi
+  let COUNT=$COUNT+1
+  sleep $DELAY
+done
+
+echo "Downloading GCC sources..."
+RETRIES=$RETRY_MAX
+DELAY=10
+COUNT=1
+while [ $COUNT -lt $RETRIES ]; do
+  svn checkout svn://gcc.gnu.org/svn/gcc/trunk gcc
+  if [ $? -eq 0 ]; then
+      RETRIES=0
+      break
+  fi
+  let COUNT=$COUNT+1
+  sleep $DELAY
+done
+
+echo "Downloading newlib and libgloss..."
+RETRIES=$RETRY_MAX
+DELAY=10
+COUNT=1
+while [ $COUNT -lt $RETRIES ]; do
+  cvs -z3 -d:pserver:anoncvs@sourceware.org:/cvs/src co \
+      newlib \
+      libgloss
+  if [ $? -eq 0 ]; then
+      RETRIES=0
+      break
+  fi
+  let COUNT=$COUNT+1
+  sleep $DELAY
+done
 
 cp gcc/config.sub binutils-gdb
 cp gcc/config.sub src
