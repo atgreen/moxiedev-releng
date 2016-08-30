@@ -12,5 +12,5 @@ dependencies:
     - docker info
     - docker build -t moxielogic/moxiedev-builder .
     - pwd && ls -l
-    - docker run -t moxielogic/moxiedev-builder
+    - docker run -t -v .:/opt moxielogic/moxiedev-builder
     
