@@ -2,7 +2,7 @@ FROM centos
 
 MAINTAINER green@moxielogic.org
 
-RUN yum -y install gcc gcc-c++ rpmbuild make patch autoconf automake mpfr-devel libgmp-devel mpc-devel flex bison
+RUN yum -y install gcc gcc-c++ rpmbuild make patch autoconf automake mpfr-devel libgmp-devel mpc-devel flex bison rpm-build
 
 CMD pwd && ls -l /opt && cd /opt && ./scripts/mksrpm.sh
 
