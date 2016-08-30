@@ -13,6 +13,6 @@ PACKAGES="moxielogic-repo-$TAG $PACKAGES"
 
 for i in $PACKAGES; do
   # scrub the yum cache because we probably just placed new content in $REPO 
-  rpmbuild -ra dist/$i-*src.rpm;
+  rpmbuild --rebuild dist/$i-*src.rpm;
 done
 
