@@ -11,4 +11,6 @@ dependencies:
   override:
     - docker info
     - docker build -t moxielogic/moxiedev-builder .
+    - pwd && ls -l
     - docker run -t moxielogic/moxiedev-builder
+    
