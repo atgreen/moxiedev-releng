@@ -1,0 +1,14 @@
+machine:
+  services:
+    - docker
+
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t moxielogic/moxiedev-builder .
+    - docker run -t moxielogic/moxiedev-builder
