@@ -13,4 +13,4 @@ dependencies:
     - docker build -t moxielogic/moxiedev-builder .
     - pwd && ls -l
     - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder
-    
+    - find ./ -name \*.rpm | xargs -n 1 -iii cp $ii $CIRCLE_ARTIFACTS
