@@ -11,11 +11,8 @@ done;
 
 PACKAGES="moxielogic-repo-$TAG $PACKAGES"
 
-rpmbuild -ba dist/moxie-elf-binutils-*src.rpm;
-find ./ -name \*rpm
-
 for i in $PACKAGES; do
   # scrub the yum cache because we probably just placed new content in $REPO 
-  rpmbuild -ba dist/$i-*src.rpm;
+  rpmbuild -ra dist/$i-*src.rpm;
 done
 
