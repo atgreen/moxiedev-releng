@@ -1,13 +1,9 @@
-%define	with_newlib 0
+%define	with_newlib 1
 
 %define _prefix /opt/moxielogic
 %define _sysconfdir /opt/moxielogic/etc
 
-%if %{with_newlib} == 1
 Name:		moxielogic-moxiebox-gcc
-%else
-Name:		moxielogic-moxiebox-bootstrap-gcc
-%endif
 Version:	@VERSION@
 Release:	0.@BUILDNUM@%{?dist}
 Summary:	The GNU Compiler Collection targeting moxie RTEMS

@@ -29,9 +29,9 @@ for i in moxie-elf moxie-rtems moxiebox; do
   cp specs/moxielogic-$i-binutils.spec.in dist/moxielogic-$i-binutils.spec
   sed -i "s/@VERSION@/$BINUTILS_VERSION/g" dist/moxielogic-$i-binutils.spec
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-binutils.spec
-#  cp specs/moxielogic-$i-gcc.spec.in dist/moxielogic-$i-gcc.spec
-#  sed -i "s/@VERSION@/$GCC_VERSION/g" dist/moxielogic-$i-gcc.spec
-#  sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gcc.spec
+  cp specs/moxielogic-$i-gcc.spec.in dist/moxielogic-$i-gcc.spec
+  sed -i "s/@VERSION@/$GCC_VERSION/g" dist/moxielogic-$i-gcc.spec
+  sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gcc.spec
 #  cp specs/moxielogic-$i-newlib.spec.in dist/moxielogic-$i-newlib.spec
 #  sed -i "s/@VERSION@/$NEWLIB_VERSION/g" dist/moxielogic-$i-newlib.spec
 #  sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-newlib.spec
@@ -40,7 +40,7 @@ for i in moxie-elf moxie-rtems moxiebox; do
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gdb.spec
   
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-binutils.spec
-#  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gcc.spec
+  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gcc.spec
 #  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-newlib.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gdb.spec
 done;
@@ -70,23 +70,23 @@ tar \
 --exclude binutils-gdb/gprof \
 -czf dist/moxie-gdb.tar.gz binutils-gdb
 
-#(cd gcc; ./contrib/gcc_update --touch)
-#tar \
-# --exclude .svn \
-# --exclude libjava \
-# --exclude libada \
-# --exclude gnattools \
-# --exclude zlib \
-# --exclude libffi \
-# --exclude libmudflap \
-# --exclude fortran \
-# --exclude boehm-gc \
-# --exclude libgfortran \
-# --exclude ada \
-# --exclude libobjc \
-# --exclude ppl \
-# --exclude cloog-ppl \
-# -czf dist/moxie-gcc.tar.gz gcc
+(cd gcc; ./contrib/gcc_update --touch)
+tar \
+ --exclude .svn \
+ --exclude libjava \
+ --exclude libada \
+ --exclude gnattools \
+ --exclude zlib \
+ --exclude libffi \
+ --exclude libmudflap \
+ --exclude fortran \
+ --exclude boehm-gc \
+ --exclude libgfortran \
+ --exclude ada \
+ --exclude libobjc \
+ --exclude ppl \
+ --exclude cloog-ppl \
+ -czf dist/moxie-gcc.tar.gz gcc
 
 tar \
 --exclude .git \
@@ -109,7 +109,7 @@ rpmbuild \
 --define "VERSION $GDB_VERSION" \
 -bs dist/moxielogic-$i-gdb.spec
 
-# rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/moxielogic-$i-gcc.spec
+rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/moxielogic-$i-gcc.spec
 
 rpmbuild \
 --define "_sourcedir dist" \
@@ -124,10 +124,10 @@ rpmbuild \
 
 done;
 
-#cp dist/moxielogic-moxie-elf-gcc.spec dist/bootstrap-moxie-elf-gcc.spec
-#perl -p -i -e 's/moxielogic-moxie-elf-gcc/bootstrap-moxie-elf-gcc/g' dist/bootstrap-moxie-elf-gcc.spec
-#perl -p -i -e 's/with_newlib 1/with_newlib 0/g' dist/bootstrap-moxie-elf-gcc.spec
-#rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-moxie-elf-gcc.spec
+cp dist/moxielogic-moxie-elf-gcc.spec dist/bootstrap-moxie-elf-gcc.spec
+perl -p -i -e 's/moxielogic-moxie-elf-gcc/bootstrap-moxie-elf-gcc/g' dist/bootstrap-moxie-elf-gcc.spec
+perl -p -i -e 's/with_newlib 1/with_newlib 0/g' dist/bootstrap-moxie-elf-gcc.spec
+rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-moxie-elf-gcc.spec
 
 #tar \
 #--exclude .git \
