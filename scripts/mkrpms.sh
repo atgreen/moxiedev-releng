@@ -2,13 +2,13 @@
 set -x
 
 #TARGETS=moxie-elf moxie-rtems moxiebox
-TARGETS=moxie-elf
+TARGETS=moxie-elf moxiebox moxie-rtems
 
 # PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc moxielogic-moxie-elf-gdb"
 
 for i in $TARGETS; do
     rpmbuild --rebuild dist/moxielogic-$i-binutils*src.rpm;
-#    rpmbuild --rebuild dist/moxielogic-$i-gdb*src.rpm;
+    rpmbuild --rebuild dist/moxielogic-$i-gdb*src.rpm;
     rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-binutils*.rpm;
 done
 
