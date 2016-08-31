@@ -3,4 +3,4 @@
 	url = https://github.com/bminor/binutils-gdb
 [submodule "gcc"]
 	path = gcc
-	url = git://gcc.gnu.org/git/gcc.git
+	url = https://github.com/gcc-mirror/gcc.git

@@ -16,3 +16,6 @@ for i in $PACKAGES; do
   # scrub the yum cache because we probably just placed new content in $REPO 
   rpmbuild --rebuild dist/$i-*src.rpm;
 done
+
+mkdir rpms
+find /root/rpmbuild -name \*.rpm | xargs -n 1 -I RPMFILE cp -a RPMFILE rpms
