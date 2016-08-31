@@ -1,3 +1,6 @@
 [submodule "binutils-gdb"]
 	path = binutils-gdb
 	url = https://github.com/bminor/binutils-gdb
+[submodule "gcc"]
+	path = gcc
+	url = git://gcc.gnu.org/git/gcc.git
