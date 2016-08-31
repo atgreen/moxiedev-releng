@@ -14,7 +14,7 @@ DATE=`date +"%a %b %d %Y"`
 GCC_VERSION=`cat gcc/gcc/BASE-VER`
 GDB_VERSION=`cat binutils-gdb/gdb/version.in | sed -e "s/\-//"`
 BINUTILS_VERSION=`cat binutils-gdb/bfd/version.m4 | awk -F "[,() ]" -f scripts/v.awk | tr -d []`
-#NEWLIB_VERSION=`cat src/newlib/configure | awk -F "\"" -f scripts/nv.awk` 
+NEWLIB_VERSION=`cat newlib/newlib/configure | awk -F "\"" -f scripts/nv.awk` 
 #QEMU_VERSION=`cat qemu-moxie/VERSION`
 
 if ! test -d dist; then
@@ -32,16 +32,16 @@ for i in moxie-elf moxie-rtems moxiebox; do
   cp specs/moxielogic-$i-gcc.spec.in dist/moxielogic-$i-gcc.spec
   sed -i "s/@VERSION@/$GCC_VERSION/g" dist/moxielogic-$i-gcc.spec
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gcc.spec
-#  cp specs/moxielogic-$i-newlib.spec.in dist/moxielogic-$i-newlib.spec
-#  sed -i "s/@VERSION@/$NEWLIB_VERSION/g" dist/moxielogic-$i-newlib.spec
-#  sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-newlib.spec
+  cp specs/moxielogic-$i-newlib.spec.in dist/moxielogic-$i-newlib.spec
+  sed -i "s/@VERSION@/$NEWLIB_VERSION/g" dist/moxielogic-$i-newlib.spec
+  sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-newlib.spec
   cp specs/moxielogic-$i-gdb.spec.in dist/moxielogic-$i-gdb.spec
   sed -i "s/@VERSION@/$GDB_VERSION/g" dist/moxielogic-$i-gdb.spec
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gdb.spec
   
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-binutils.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gcc.spec
-#  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-newlib.spec
+  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-newlib.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gdb.spec
 done;
 
@@ -97,9 +97,9 @@ tar \
 --exclude binutils-gdb/gold \
 -czf dist/moxie-binutils.tar.gz binutils-gdb
 
-#tar \
-#--exclude CVS \
-#-czf dist/moxie-newlib.tar.gz src
+tar \
+--exclude .git \
+-czf dist/moxie-newlib.tar.gz src
 
 for i in moxie-elf moxie-rtems moxiebox; do
 
@@ -117,10 +117,10 @@ rpmbuild \
 --define "VERSION $BINUTILS_VERSION" \
 -bs dist/moxielogic-$i-binutils.spec
 
-#rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" \
-#--define "_sourcedir dist" \
-#--define "_srcrpmdir dist" \
-#-bs dist/moxielogic-$i-newlib.spec
+rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" \
+--define "_sourcedir dist" \
+--define "_srcrpmdir dist" \
+-bs dist/moxielogic-$i-newlib.spec
 
 done;
 
