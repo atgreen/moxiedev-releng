@@ -8,7 +8,7 @@ TARGETS=moxie-elf
 
 for i in $TARGETS; do
     rpmbuild --rebuild dist/moxielogic-$i-binutils*src.rpm;
-    rpmbuild --rebuild dist/moxielogic-$i-gdb*src.rpm;
+#    rpmbuild --rebuild dist/moxielogic-$i-gdb*src.rpm;
     rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-binutils\*.rpm;
 done
 
