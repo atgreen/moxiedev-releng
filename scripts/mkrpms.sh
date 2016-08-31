@@ -14,7 +14,7 @@ done
 
 for i in $TARGETS; do
     rpmbuild --rebuild dist/moxielogic-$i-bootstrap-gcc*src.rpm;
-    rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-bootstrap-gcc\*.rpm;
+    rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-gcc\*.rpm;
 done
 
 mkdir rpms
