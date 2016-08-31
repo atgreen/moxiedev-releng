@@ -1,23 +1,21 @@
 diff --git a/sim/moxie/Makefile.in b/sim/moxie/Makefile.in
-index dafdf8c..6405738 100644
+index fd967a8..ce50d20 100644
 --- a/sim/moxie/Makefile.in
 +++ b/sim/moxie/Makefile.in
-@@ -26,20 +26,21 @@ sim-memopt.o
+@@ -25,16 +25,17 @@ SIM_OBJS = \
+ 	sim-resume.o
  
  SIM_EXTRA_LIBS = -lm -lz
- SIM_EXTRA_CLEAN = moxie-clean
 -SIM_EXTRA_INSTALL = install-dtb
--SIM_CFLAGS = -DDTB="\"$(dtbdir)/moxie-gdb.dtb\""
+-SIM_EXTRA_CFLAGS = -DDTB="\"$(dtbdir)/moxie-gdb.dtb\""
 +#SIM_EXTRA_INSTALL = install-dtb
-+#SIM_CFLAGS = -DDTB="\"$(dtbdir)/moxie-gdb.dtb\""
++#SIM_EXTRA_CFLAGS = -DDTB="\"$(dtbdir)/moxie-gdb.dtb\""
  
  ## COMMON_POST_CONFIG_FRAG
  
--all: interp.o moxie-gdb.dtb
-+all: interp.o
+-all: moxie-gdb.dtb
++all:
 +# moxie-gdb.dtb
- 
- interp.o: interp.c
  
 -moxie-gdb.dtb: moxie-gdb.dts
 -	dtc -O dtb -o moxie-gdb.dtb ${srcdir}/moxie-gdb.dts
@@ -27,17 +25,15 @@ index dafdf8c..6405738 100644
 -install-dtb: moxie-gdb.dtb
 -	$(SHELL) $(srcdir)/../../mkinstalldirs $(DESTDIR)$(dtbdir)
 -	$(INSTALL_DATA) moxie-gdb.dtb $(DESTDIR)$(dtbdir)/moxie-gdb.dtb
-+# install-dtb: moxie-gdb.dtb
++#install-dtb: moxie-gdb.dtb
 +#	$(SHELL) $(srcdir)/../../mkinstalldirs $(DESTDIR)$(dtbdir)
 +#	$(INSTALL_DATA) moxie-gdb.dtb $(DESTDIR)$(dtbdir)/moxie-gdb.dtb
- 
- moxie-clean:
 diff --git a/sim/moxie/interp.c b/sim/moxie/interp.c
-index 5f449af..340f7b9 100644
+index 6de1aa0..ff364c0 100644
 --- a/sim/moxie/interp.c
 +++ b/sim/moxie/interp.c
-@@ -1311,7 +1311,7 @@ sim_close (sd, quitting)
- 
+@@ -1248,7 +1248,7 @@ sim_open (SIM_OPEN_KIND kind, host_callback *cb,
+ }
  
  /* Load the device tree blob.  */
 -
@@ -45,16 +41,16 @@ index 5f449af..340f7b9 100644
  static void
  load_dtb (SIM_DESC sd, const char *filename)
  {
-@@ -1337,7 +1337,7 @@ load_dtb (SIM_DESC sd, const char *filename)
+@@ -1274,7 +1274,7 @@ load_dtb (SIM_DESC sd, const char *filename)
    cpu.asregs.sregs[9] = 0xE0000000;
    fclose (f);
  }
 -
 +#endif
  SIM_RC
- sim_load (sd, prog, abfd, from_tty)
-      SIM_DESC sd;
-@@ -1445,7 +1445,7 @@ sim_create_inferior (sd, prog_bfd, argv, env)
+ sim_create_inferior (SIM_DESC sd, struct bfd *prog_bfd,
+ 		     char * const *argv, char * const *env)
+@@ -1319,7 +1319,7 @@ sim_create_inferior (SIM_DESC sd, struct bfd *prog_bfd,
  
    wlat (scpu, 0, 4 + 4 + i * 4, 0);
  
