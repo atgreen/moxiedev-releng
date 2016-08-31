@@ -26,7 +26,7 @@ conglomeration of several library parts, all under free software
 licenses that make them easily usable on embedded products.
 
 %prep
-%setup -q -n src
+%setup -q -n newlib
 
 # Extract %%__os_install_post into os_install_post~
 cat << \EOF > os_install_post~
