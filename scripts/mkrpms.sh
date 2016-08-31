@@ -15,4 +15,3 @@ for i in $PACKAGES; do
   # scrub the yum cache because we probably just placed new content in $REPO 
   rpmbuild --rebuild dist/$i-*src.rpm;
 done
-
