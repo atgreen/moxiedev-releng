@@ -1,3 +1,4 @@
+
 #!/bin/sh
 set -x
 
@@ -99,7 +100,7 @@ tar \
 
 tar \
 --exclude .git \
--czf dist/moxie-newlib.tar.gz src
+-czf dist/moxie-newlib.tar.gz newlib
 
 for i in moxie-elf moxie-rtems moxiebox; do
 
