@@ -9,6 +9,11 @@ checkout:
 
 dependencies:
   override:
-    - docker build -t moxielogic/moxiedev-builder .
-    - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder
+    - docker build -t moxielogic/moxiedev-builder-el7 .
+    - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder-el7
     - find /root/rpmbuild -name \*.rpm | xargs -n 1 -I RPMFILE cp RPMFILE $CIRCLE_ARTIFACTS
+    - rm -rf dist
+    - docker build -t moxielogic/moxiedev-builder-f24 .
+    - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder-f24
+    - find /root/rpmbuild -name \*.rpm | xargs -n 1 -I RPMFILE cp RPMFILE $CIRCLE_ARTIFACTS
+    - rm -rf dist
