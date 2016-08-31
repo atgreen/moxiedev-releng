@@ -17,3 +17,5 @@ for i in $TARGETS; do
     rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-bootstrap-gcc\*.rpm;
 done
 
+mkdir rpms
+find /root/rpmbuild -name \*.rpm | xargs -n 1 -I RPMFILE cp -a RPMFILE rpms
