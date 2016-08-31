@@ -11,7 +11,7 @@ BUILDNUM=`expr $BUILDNUM + 1`
 echo $BUILDNUM > BUILDNUM
 DATE=`date +"%a %b %d %Y"`
 
-#GCC_VERSION=`cat gcc/gcc/BASE-VER`
+GCC_VERSION=`cat gcc/gcc/BASE-VER`
 GDB_VERSION=`cat binutils-gdb/gdb/version.in | sed -e "s/\-//"`
 BINUTILS_VERSION=`cat binutils-gdb/bfd/version.m4 | awk -F "[,() ]" -f scripts/v.awk | tr -d []`
 #NEWLIB_VERSION=`cat src/newlib/configure | awk -F "\"" -f scripts/nv.awk` 
