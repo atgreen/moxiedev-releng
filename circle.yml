@@ -11,5 +11,4 @@ dependencies:
   override:
     - docker build -t moxielogic/moxiedev-builder .
     - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder
-    - find ./ -name \*.rpm | xargs -n 1 -I RPMFILE cp RPMFILE $CIRCLE_ARTIFACTS
-    
+    - find /root/rpmbuild -name \*.rpm | xargs -n 1 -I RPMFILE cp RPMFILE $CIRCLE_ARTIFACTS
