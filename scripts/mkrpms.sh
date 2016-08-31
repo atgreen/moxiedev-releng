@@ -2,7 +2,7 @@
 set -x
 
 #TARGETS=moxie-elf moxie-rtems moxiebox
-TARGETS=moxie-elf moxiebox moxie-rtems
+TARGETS="moxie-elf moxiebox moxie-rtems"
 
 # PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc moxielogic-moxie-elf-gdb"
 
