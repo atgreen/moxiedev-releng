@@ -5,7 +5,7 @@ MAINTAINER green@moxielogic.org
 RUN dnf -y install \
     gcc gcc-c++ rpm-build make patch autoconf automake mpfr-devel \
     gmp-devel libmpc-devel flex bison rpm-build zlib-devel \
-    python-devel texinfo ncurses-devel createrepo gperf tee
+    python-devel texinfo ncurses-devel createrepo gperf
 
 CMD cd /opt && ./scripts/mksrpm.sh && echo "**BUILDING - see build-f24.log for logs**" && set -o pipefail && (./scripts/mkrpms.sh 2>1 | tee build-f24.log)
 
