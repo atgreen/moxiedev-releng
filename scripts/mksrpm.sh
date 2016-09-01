@@ -125,10 +125,12 @@ rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_fi
 
 done;
 
-cp dist/moxielogic-moxie-elf-gcc.spec dist/bootstrap-moxie-elf-gcc.spec
-perl -p -i -e 's/moxielogic-moxie-elf-gcc/bootstrap-moxie-elf-gcc/g' dist/bootstrap-moxie-elf-gcc.spec
-perl -p -i -e 's/with_newlib 1/with_newlib 0/g' dist/bootstrap-moxie-elf-gcc.spec
-rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-moxie-elf-gcc.spec
+for i in moxie-elf moxiebox moxie-rtems; do
+  cp dist/moxielogic-$i-gcc.spec dist/bootstrap-$i-gcc.spec
+  perl -p -i -e 's/moxielogic-$i-gcc/bootstrap-$i-gcc/g' dist/bootstrap-$i-gcc.spec
+  perl -p -i -e 's/with_newlib 1/with_newlib 0/g' dist/bootstrap-$i-gcc.spec
+  rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-$i-gcc.spec
+done
 
 #tar \
 #--exclude .git \
