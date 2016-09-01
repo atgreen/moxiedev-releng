@@ -1,8 +1,7 @@
 #!/bin/sh
 set -x
 
-#TARGETS=moxie-elf moxie-rtems moxiebox
-TARGETS="moxie-elf moxiebox moxie-rtems"
+TARGETS="moxiebox moxie-elf moxie-rtems"
 
 # PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc moxielogic-moxie-elf-gdb"
 
@@ -12,14 +11,17 @@ for i in $TARGETS; do
     rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-binutils*.rpm;
 done
 
-rpmbuild --rebuild dist/bootstrap-moxie-elf-gcc*src.rpm;
-rpm -hiv /root/rpmbuild/RPMS/x86_64/bootstrap-moxie-elf-gcc*.rpm;
+export PATH=/opt/moxielogic/bin:$PATH
 
 for i in $TARGETS; do
+    rpmbuild --rebuild dist/bootstrap-$i-gcc*src.rpm;
+    rpm -hiv /root/rpmbuild/RPMS/x86_64/bootstrap-$i-gcc*.rpm;
     rpmbuild --rebuild dist/moxielogic-$i-newlib*src.rpm;
     rpm -hiv /root/rpmbuild/RPMS/noarch/moxielogic-$i-newlib*.rpm;
     rpmbuild --rebuild dist/moxielogic-$i-gcc*src.rpm;
-    rpm -hiv /root/rpmbuild/RPMS/x86_64/moxielogic-$i-gcc*.rpm;
+    rpm -e bootstrap-$i-gcc
+    rpm -e moxielogic-$i-binutils
+    rpm -e moxielogic-$i-newlib
 done
 
 mkdir rpms
