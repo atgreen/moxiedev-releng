@@ -127,8 +127,8 @@ done;
 
 for i in moxie-elf moxiebox moxie-rtems; do
   cp dist/moxielogic-$i-gcc.spec dist/bootstrap-$i-gcc.spec
-  sed -i -E 's/moxielogic-$i-gcc/bootstrap-$i-gcc/g' dist/bootstrap-$i-gcc.spec
-  sed -i -E 's/with_newlib 1/with_newlib 0/g' dist/bootstrap-$i-gcc.spec
+  sed -i -E s/moxielogic-$i-gcc/bootstrap-$i-gcc/g dist/bootstrap-$i-gcc.spec
+  sed -i -E s/with_newlib 1/with_newlib 0/g dist/bootstrap-$i-gcc.spec
   rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-$i-gcc.spec
 done
 
