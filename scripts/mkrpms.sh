@@ -3,6 +3,8 @@ set -x
 
 TARGETS="moxiebox moxie-elf moxie-rtems"
 
+echo "BUILDING FOR TARGETS " $TARGETS
+
 # PACKAGES="moxielogic-qemu moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc moxielogic-moxie-elf-newlib moxielogic-moxie-elf-gcc moxielogic-moxie-elf-gdb"
 
 for i in $TARGETS; do
