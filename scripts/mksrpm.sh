@@ -33,6 +33,9 @@ for i in moxie-elf moxie-rtems moxiebox; do
   cp specs/moxielogic-$i-gcc.spec.in dist/moxielogic-$i-gcc.spec
   sed -i "s/@VERSION@/$GCC_VERSION/g" dist/moxielogic-$i-gcc.spec
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-gcc.spec
+  cp specs/bootstrap-$i-gcc.spec.in dist/bootstrap-$i-gcc.spec
+  sed -i "s/@VERSION@/$GCC_VERSION/g" dist/bootstrap-$i-gcc.spec
+  sed -i "s/@DATE@/$DATE/g" dist/bootstrap-$i-gcc.spec
   cp specs/moxielogic-$i-newlib.spec.in dist/moxielogic-$i-newlib.spec
   sed -i "s/@VERSION@/$NEWLIB_VERSION/g" dist/moxielogic-$i-newlib.spec
   sed -i "s/@DATE@/$DATE/g" dist/moxielogic-$i-newlib.spec
@@ -112,6 +115,8 @@ rpmbuild \
 
 rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/moxielogic-$i-gcc.spec
 
+rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-$i-gcc.spec
+
 rpmbuild \
 --define "_sourcedir dist" \
 --define "_srcrpmdir dist" \
@@ -124,13 +129,6 @@ rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_fi
 -bs dist/moxielogic-$i-newlib.spec
 
 done;
-
-for i in moxie-elf moxiebox moxie-rtems; do
-  cp dist/moxielogic-$i-gcc.spec dist/bootstrap-$i-gcc.spec
-  sed -i -E s/moxielogic-$i-gcc/bootstrap-$i-gcc/g dist/bootstrap-$i-gcc.spec
-  sed -i -E s/with_newlib 1/with_newlib 0/g dist/bootstrap-$i-gcc.spec
-  rpmbuild --nodeps --define "_source_filedigest_algorithm 0" --define "_binary_filedigest_algorithm 0" --define "VERSION $GCC_VERSION" --define "_sourcedir dist" --define "_srcrpmdir dist" -bs dist/bootstrap-$i-gcc.spec
-done
 
 #tar \
 #--exclude .git \
