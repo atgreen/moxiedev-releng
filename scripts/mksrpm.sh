@@ -45,6 +45,7 @@ for i in moxie-elf moxie-rtems moxiebox; do
   
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-binutils.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gcc.spec
+  sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/bootstrap-$i-gcc.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-newlib.spec
   sed -i "s/@BUILDNUM@/$BUILDNUM/g" dist/moxielogic-$i-gdb.spec
 done;
