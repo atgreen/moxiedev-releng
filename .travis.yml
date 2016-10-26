@@ -6,7 +6,11 @@ services:
   - docker
 
 before_install:
-  - docker build -t moxielogic/moxiedev .
+  - git submodule sync
+  - git submodule update --init
+  - mkdir dist
+  - docker build -f Dockerfile.f24 -t moxielogic/moxiedev-builder-f24 .
+  - docker run -t -v `pwd`:/opt moxielogic/moxiedev-builder-f24
+  - find rpms -name \*.rpm
 
-script:
-  - 
+
