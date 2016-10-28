@@ -20,10 +20,6 @@ after_success:
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push atgreen/moxielogic-repos;
     fi
-  - body='{
-     "request": {
-     "branch":"master"
-     }}'
   - curl -s -X POST \
       -H "Content-Type: application/json" \
       -H "Accept: application/json" \
