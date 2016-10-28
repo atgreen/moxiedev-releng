@@ -1,3 +1,3 @@
 /_NEWLIB_VERSION/ {
-  print $2
+  print $3
 }
