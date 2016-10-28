@@ -10,8 +10,8 @@ before_install:
   - git submodule update --init
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
-  - docker run -t -v `pwd`:/opt moxielogic/moxiedev-srpm-builder
-  - docker build -f Dockerfile.srpm-hoster -t atgreen/moxiedev-srpm-hoster .
+  - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
+  - docker build -f Dockerfile.repos -t atgreen/moxielogic-repos .
 
 script:
 - 
@@ -19,6 +19,6 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/moxiedev-srpm-hoster;
+      docker push atgreen/moxielogic-repos .
     fi
 
