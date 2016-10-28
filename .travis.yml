@@ -6,8 +6,8 @@ services:
   - docker
 
 before_install:
-  - git submodule sync
-  - git submodule update --init
+  - # git submodule sync
+  - # git submodule update --init
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
   - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
