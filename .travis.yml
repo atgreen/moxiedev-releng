@@ -20,15 +20,6 @@ after_success:
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push atgreen/moxielogic-repos;
     fi
-  - curl -s -X POST \
-      -H "Content-Type: application/json" \
-      -H "Accept: application/json" \
-      -H "Travis-API-Version: 3" \
-      -H "Authorization: token $TRAVIS_TOKEN" \
-      -d '{ \
-      "request": { \
-        "branch":"master" \
-      }}' \
-      https://api.travis-ci.org/repo/atgreen%2Fmoxiedev-builder/requests
+  - curl -s -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Travis-API-Version: 3" -H "Authorization: token $TRAVIS_TOKEN" -d '{ "request": { "branch":"master" }}' https://api.travis-ci.org/repo/atgreen%2Fmoxiedev-builder/requests
   
 
