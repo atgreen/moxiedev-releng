@@ -10,7 +10,7 @@ before_install:
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
   - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
-  - rm dist/*.tar.gz dist/*.spec dist/*.patch
+  - rm -f dist/*.tar.gz dist/*.spec dist/*.patch
   - docker build -f Dockerfile.repos -t atgreen/moxielogic-repos .
 
 script:
