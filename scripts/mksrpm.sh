@@ -15,7 +15,6 @@ GCC_VERSION=`cat gcc/gcc/BASE-VER`
 GDB_VERSION=`cat binutils-gdb/gdb/version.in | sed -e "s/\-//"`
 BINUTILS_VERSION=`cat binutils-gdb/bfd/version.m4 | awk -F "[,() ]" -f scripts/v.awk | tr -d []`
 NEWLIB_VERSION=`cat newlib/newlib/configure | awk -F "\"" -f scripts/nv.awk` 
-#QEMU_VERSION=`cat qemu-moxie/VERSION` 
 
 if ! test -d dist; then
   mkdir dist
