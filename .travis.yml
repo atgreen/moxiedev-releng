@@ -7,6 +7,7 @@ services:
   - docker
 
 before_install:
+  - env
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
   - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
