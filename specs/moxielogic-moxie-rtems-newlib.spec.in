@@ -15,9 +15,8 @@ Source0:	moxie-newlib.tar.gz
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# Requires:       moxielogic-moxie-rtems-gcc
 BuildRequires:  moxielogic-moxie-rtems-binutils
-BuildRequires:  moxielogic-moxie-elf-gcc
+BuildRequires:  bootstrap-moxie-rtems-gcc
 
 BuildArch:	noarch
 

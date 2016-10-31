@@ -17,7 +17,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	moxielogic-moxie-elf-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel libmpc-devel mpfr-devel
 BuildRequires:  zlib-devel
-Requires:	moxielogic-moxie-elf-binutils bootstrap-moxie-elf-gcc-fsf-man-pages
+Requires:	moxielogic-moxie-elf-binutils
 %if %{with_newlib} == 1
 BuildRequires:	moxielogic-moxie-elf-newlib
 Requires:	moxielogic-moxie-elf-newlib
