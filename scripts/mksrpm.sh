@@ -6,9 +6,7 @@ date=`sed -n -e 's/^.* BFD_VERSION_DATE \(.*\)$/\1/p' bfd/version.h`;
 perl -p -i -e "s/DATE/$date/" gdb/version.in
 )
 
-BUILDNUM=`cat BUILDNUM`
-BUILDNUM=`expr $BUILDNUM + 1`
-echo $BUILDNUM > BUILDNUM
+BUILDNUM=$TRAVIS_BUILD_NUMBER
 DATE=`date +"%a %b %d %Y"`
 
 GCC_VERSION=`cat gcc/gcc/BASE-VER`
