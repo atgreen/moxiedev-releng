@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl -X DELETE -H "Authorization: token $TRAVIS_TOKEN" \
+     https://api.travis-ci.org/repos/atgreen/moxiedev-builder/caches

@@ -7,7 +7,7 @@ services:
   - docker
 
 before_install:
-  - curl -X DELETE -H 'Authorization: token $TRAVIS_TOKEN' https://api.travis-ci.org/repos/atgreen/moxiedev-builder/caches
+  - ./.clear-builder-cache
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
   - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
