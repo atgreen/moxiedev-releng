@@ -2,7 +2,7 @@ FROM docker.io/fedora:24
 
 MAINTAINER green@moxielogic.org
 
-RUN dnf -y install httpd
+RUN dnf clean all && dnf -y install httpd
 ADD dist /var/www/html
 
 CMD httpd -DFOREGROUND
