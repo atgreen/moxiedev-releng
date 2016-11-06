@@ -3,6 +3,8 @@
 %define _prefix /opt/moxielogic
 %define _sysconfdir /opt/moxielogic/etc
 
+%define __os_install_post %{nil}
+
 Name:		moxielogic-moxie-elf-newlib
 Version:	@VERSION@
 Release:	0.@BUILDNUM@
@@ -28,26 +30,6 @@ licenses that make them easily usable on embedded products.
 %prep
 %setup -q -n newlib
 
-# Extract %%__os_install_post into os_install_post~
-cat << \EOF > os_install_post~
-%__os_install_post
-EOF
-
-# Generate customized brp-*scripts
-cat os_install_post~ | while read a x y; do
-case $a in
-# Prevent brp-strip* from trying to handle foreign binaries 
-*/brp-strip*)
-  b=$(basename $a)
-  sed -e 's,find $RPM_BUILD_ROOT,find $RPM_BUILD_ROOT%_bindir $RPM_BUILD_ROOT%_libexecdir,' $a > $b
-  chmod a+x $b
-  ;;
-esac
-done
-
-sed -e 's,^[ ]*/usr/lib/rpm.*/brp-strip,./brp-strip,' \
-< os_install_post~ > os_install_post
-
 %build
 PATH=%{_prefix}/bin:$PATH
 `pwd`/configure --prefix=%_prefix \
@@ -71,8 +53,6 @@ PATH=%{_prefix}/bin:$PATH
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/opt/moxielogic/moxie-elf/lib/el
 make install-target-libgloss install-target-newlib DESTDIR=$RPM_BUILD_ROOT
-
-%define __os_install_post . ./os_install_post
 
 %clean
 rm -rf $RPM_BUILD_ROOT
