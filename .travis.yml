@@ -9,10 +9,10 @@ services:
 before_install:
   - ./.clear-builder-cache
   - mkdir dist
-  - docker build -f Dockerfile.srpm-builder -t atgreen/moxiedev-srpm-builder .
-  - docker run -t -v `pwd`:/opt atgreen/moxiedev-srpm-builder
+  - docker build -f Dockerfile.srpm-builder -t atgreen/moxielogic-srpm-builder .
+  - docker run -t -v `pwd`:/opt atgreen/moxielogic-srpm-builder
   - rm -f dist/*.tar.gz dist/*.spec dist/*.patch
-  - docker build -f Dockerfile.repos -t atgreen/moxielogic-repos .
+  - docker build -f Dockerfile.builder-f24 -t atgreen/moxielogic-builder-f24 .
 
 script:
   -
@@ -20,7 +20,7 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/moxielogic-repos;
+      docker push atgreen/moxielogic-builder-f24;
     fi
   - ./.trigger
 
