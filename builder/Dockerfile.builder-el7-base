@@ -1,0 +1,16 @@
+# Base image for the el7 builder.  Build this manually and upload to
+# docker hub in order to avoid build time dependencies on CentOS
+# repos.
+
+FROM docker.io/centos:7
+
+MAINTAINER green@moxielogic.org
+
+RUN yum clean all \
+    && yum -y update \
+    && yum -y install gcc gcc-c++ rpm-build make patch autoconf \
+       	      automake mpfr-devel gmp-devel libmpc-devel flex \
+	      bison zlib-devel python-devel texinfo ncurses-devel \
+	      createrepo gperf \
+    && yum clean all
+    
