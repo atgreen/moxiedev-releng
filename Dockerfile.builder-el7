@@ -4,6 +4,7 @@ MAINTAINER green@moxielogic.org
 
 RUN mkdir -p /var/www/html
 ADD dist /var/www/html
+ADD BUILDNUM /var/www/html
 
 CMD bash
 
