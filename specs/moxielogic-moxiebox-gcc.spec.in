@@ -58,7 +58,7 @@ case $a in
 # Prevent brp-strip* from trying to handle foreign binaries 
 */brp-strip*)
   b=$(basename $a)
-  sed -e 's,find $RPM_BUILD_ROOT,find $RPM_BUILD_ROOT%_bindir $RPM_BUILD_ROOT%_libexecdir,' $a > $b
+  sed -e 's,find \"$RPM_BUILD_ROOT\",find \"$RPM_BUILD_ROOT%_bindir\" \"$RPM_BUILD_ROOT%_libexecdir\",' $a > $b
   chmod a+x $b
   ;;
 esac
