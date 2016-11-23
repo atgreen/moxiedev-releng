@@ -19,4 +19,12 @@ curl -s -X POST \
      -H "Travis-API-Version: 3" \
      -H "Authorization: token $TRAVIS_TOKEN" \
      -d "$body" \
+     https://api.travis-ci.org/repo/atgreen%2Fmoxiedev-builder-f25/requests
+
+curl -s -X POST \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -H "Travis-API-Version: 3" \
+     -H "Authorization: token $TRAVIS_TOKEN" \
+     -d "$body" \
      https://api.travis-ci.org/repo/atgreen%2Fmoxiedev-builder-el7/requests

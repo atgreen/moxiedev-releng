@@ -1,0 +1,18 @@
+FROM atgreen/moxielogic-builder-f25-base
+
+MAINTAINER green@moxielogic.org
+
+#RUN dnf clean all && dnf -y install httpd
+RUN mkdir -p /var/www/html
+ADD dist /var/www/html
+ADD BUILDNUM /var/www/html
+
+#CMD httpd -DFOREGROUND
+CMD bash
+
+
+
+
+
+
+
