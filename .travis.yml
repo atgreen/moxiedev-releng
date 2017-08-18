@@ -1,12 +1,19 @@
 ---
 sudo: required
 
+git:
+    submodules: false
+
 language: c
 
 services:
   - docker
 
 before_install:
+  - git submodule init
+  - git submodule update &
+  - GITPID=$!
+  - while kill -0 $GITPID 2>/dev/null; do echo "Waiting for clone"; sleep 30; done;
   - ./.clear-builder-cache
   - mkdir dist
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxielogic-srpm-builder .
