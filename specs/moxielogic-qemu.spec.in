@@ -12,6 +12,7 @@ URL:		http://moxielogic.org
 Source0:	moxielogic-qemu.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  zlib-devel SDL-devel glib2-devel pixman-devel
+BuildRequires:  libstdc++-static glibc-static
 Requires:	qemu qemu-img
 
 %description

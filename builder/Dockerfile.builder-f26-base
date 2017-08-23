@@ -1,8 +1,8 @@
-# Base image for the f24 builder.  Build this manually and upload to
+# Base image for the f26 builder.  Build this manually and upload to
 # docker hub in order to avoid build time dependencies on Fedora
 # repos.
 
-FROM docker.io/fedora:24
+FROM docker.io/fedora:26
 
 MAINTAINER green@moxielogic.org
 

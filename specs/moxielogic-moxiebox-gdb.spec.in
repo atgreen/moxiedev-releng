@@ -12,6 +12,7 @@ Source0:	moxie-gdb.tar.gz
 Patch0:         gdb-no-dtb.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	python-devel texinfo zlib-devel ncurses-devel flex bison
+BuildRequires:  libstdc++-static glibc-static
 Requires:	moxielogic-moxie-elf-gdb-common = %{version}-%{release}
 
 %description
@@ -24,7 +25,7 @@ and printing their data.
 %patch0 -p1
 
 %build
-CFLAGS="%optflags" ./configure \
+CFLAGS="%optflags -static -static-libgcc -static-libstdc++" ./configure \
 		   %_target_platform \
 		   --prefix=%_prefix \
 		   --exec-prefix=%_exec_prefix \
