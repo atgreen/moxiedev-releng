@@ -16,7 +16,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	moxielogic-moxie-elf-binutils flex bison texinfo gperf 
 BuildRequires:  gmp-devel gmp-static
-BuildRequires:  zlib-devel
+BuildRequires:  zlib-devel libstdc++-static glibc-static
 Requires:	moxielogic-moxie-elf-binutils
 %if %{with_newlib} == 1
 BuildRequires:	moxielogic-moxie-elf-newlib
@@ -78,7 +78,7 @@ sed -e 's,^[ ]*/usr/lib/rpm.*/brp-strip,./brp-strip,' \
 
 mkdir build
 cd build
-../configure \
+CFLAGS="%optflags -static -static-libstdc++ -static-libgcc" ../configure \
   %_target_platform \
   --prefix=%_prefix \
   --exec-prefix=%_exec_prefix \

@@ -14,5 +14,6 @@ RUN yum clean all \
 	      createrepo gperf glibc-static libstdc++-static \
     && yum clean all
 
-RUN cd /tmp && tar xvf /opt/mpfr* && cd /tmp/mpfr* && ./configure && make && make install && rm -rf /tmp/mpfr* 
-RUN cd /tmp && tar xvf /opt/mpc* && cd /tmp/mpc* && ./configure && make && make install && rm -rf /tmp/mpc* 
+RUN cd /tmp && tar xvf /opt/mpfr* && cd /tmp/mpfr* && ./configure --prefix=/usr && make && make install && rm -rf /tmp/mpfr* 
+RUN cd /tmp && tar xvf /opt/mpc* && cd /tmp/mpc* && ./configure --prefix=/usr && make && make install && rm -rf /tmp/mpc*
+
