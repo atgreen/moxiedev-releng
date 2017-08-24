@@ -19,8 +19,6 @@ before_install:
   - docker build -f Dockerfile.srpm-builder -t atgreen/moxielogic-srpm-builder .
   - docker run -t -v `pwd`:/opt atgreen/moxielogic-srpm-builder
   - rm -f dist/*.tar.gz dist/*.spec dist/*.patch
-  - docker build -f Dockerfile.builder-f25 -t atgreen/moxielogic-builder-f25 .
-  - docker build -f Dockerfile.builder-f26 -t atgreen/moxielogic-builder-f26 .
   - docker build -f Dockerfile.builder-el7 -t atgreen/moxielogic-builder-el7 .
 
 script:
@@ -29,7 +27,6 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/moxielogic-builder-f25;
       docker push atgreen/moxielogic-builder-el7;
     fi
   - ./.trigger

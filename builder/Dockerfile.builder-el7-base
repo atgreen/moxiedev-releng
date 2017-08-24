@@ -9,8 +9,10 @@ MAINTAINER green@moxielogic.org
 RUN yum clean all \
     && yum -y update \
     && yum -y install gcc gcc-c++ rpm-build make patch autoconf \
-       	      automake mpfr-devel gmp-devel libmpc-devel flex \
+       	      automake gmp-devel gmp-static flex \
 	      bison zlib-devel python-devel texinfo ncurses-devel \
-	      createrepo gperf \
+	      createrepo gperf glibc-static libstdc++-static \
     && yum clean all
-    
+
+RUN cd /tmp && tar xvf /opt/mpfr* && cd /tmp/mpfr* && ./configure && make && make install && rm -rf /tmp/mpfr* 
+RUN cd /tmp && tar xvf /opt/mpc* && cd /tmp/mpc* && ./configure && make && make install && rm -rf /tmp/mpc* 
