@@ -15,7 +15,7 @@ Source0:	moxie-gcc.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	moxielogic-moxie-elf-binutils flex bison texinfo gperf 
-BuildRequires:  gmp-devel libmpc-devel mpfr-devel
+BuildRequires:  gmp-devel gmp-static
 BuildRequires:  zlib-devel glibc-static libstdc++-static
 BuildRequires:  libstdc++-static glibc-static
 Requires:	moxielogic-moxie-elf-binutils moxielogic-moxie-elf-gcc-fsf-man-pages
