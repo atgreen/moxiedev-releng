@@ -78,7 +78,9 @@ sed -e 's,^[ ]*/usr/lib/rpm.*/brp-strip,./brp-strip,' \
 
 mkdir build
 cd build
-CC="gcc -static -static-libstdc++ -static-libgcc" CXX="g++ -static -static-libstdc++ -static-libgcc" ../configure \
+CFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
+CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
+../configure \
   %_target_platform \
   --prefix=%_prefix \
   --exec-prefix=%_exec_prefix \

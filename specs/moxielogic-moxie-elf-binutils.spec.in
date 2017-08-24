@@ -31,7 +31,9 @@ converting addresses to file and line).
 %setup -q -n binutils-gdb
 
 %build
-CFLAGS="%optflags -static -static-libgcc -static-libstdc++" ./configure \
+CFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
+CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
+      ./configure \
 		   %_target_platform \
 		   --prefix=%_prefix \
 		   --exec-prefix=%_exec_prefix \
