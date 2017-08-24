@@ -2,6 +2,7 @@ FROM atgreen/moxielogic-builder-el7-base
 
 MAINTAINER green@moxielogic.org
 
+RUN yum -y install zlib-static && yum clean all
 RUN mkdir -p /var/www/html
 ADD dist /var/www/html
 ADD BUILDNUM /var/www/html
