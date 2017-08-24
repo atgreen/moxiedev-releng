@@ -108,8 +108,8 @@ cd ..
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_infodir
 rm -rf $RPM_BUILD_ROOT%{_mandir}/man7/*
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/*.so*
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.so*
 
 %define __os_install_post . ./os_install_post
 
