@@ -15,7 +15,7 @@ Source0:	moxie-gcc.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	moxielogic-moxiebox-binutils flex bison texinfo gperf 
-BuildRequires:  gmp-devel gmp-static zlib-devel
+BuildRequires:  gmp-devel gmp-static zlib-devel zlib-static
 Requires:	moxielogic-moxiebox-binutils
 %if %{with_newlib} == 1
 BuildRequires:	moxielogic-moxiebox-newlib
