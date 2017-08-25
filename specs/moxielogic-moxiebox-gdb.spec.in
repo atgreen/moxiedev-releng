@@ -3,7 +3,7 @@
 
 Name:		moxielogic-moxiebox-gdb
 Version:	@VERSION@
-Release:	0.@BUILDNUM@%{?dist}
+Release:	0.@BUILDNUM@
 Summary:	A GNU source-level debugger for C, C++ and other languages for moxiebox
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Group:          Development/Debuggers

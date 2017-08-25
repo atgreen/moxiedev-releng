@@ -5,7 +5,7 @@
 
 Name:		moxielogic-moxie-elf-gcc
 Version:	@VERSION@
-Release:	0.@BUILDNUM@%{?dist}
+Release:	0.@BUILDNUM@
 Summary:	The GNU Compiler Collection targeting the moxie core
 
 Group:		Development

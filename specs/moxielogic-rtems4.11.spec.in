@@ -7,7 +7,7 @@
 
 Name:		moxielogic-rtems4.11
 Version:	@VERSION@
-Release:	0.@BUILDNUM@%{?dist}
+Release:	0.@BUILDNUM@
 Summary:	RTEMS port for the moxie processor core
 
 Group:		Development/Tools

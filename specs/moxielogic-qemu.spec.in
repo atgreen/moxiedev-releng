@@ -3,7 +3,7 @@
 
 Name:		moxielogic-qemu
 Version:	@VERSION@
-Release:	0.@BUILDNUM@%{?dist}
+Release:	0.@BUILDNUM@
 Summary:	QEMU port to the moxie architecture
 
 Group:		Development/Tools

@@ -3,7 +3,7 @@
 
 Name:		moxielogic-moxiebox-binutils
 Version:	@VERSION@
-Release:	0.@BUILDNUM@%{?dist}
+Release:	0.@BUILDNUM@
 Summary:	The GNU binutils for moxiebox development
 
 Group:		Development/Tools
