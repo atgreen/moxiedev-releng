@@ -20,6 +20,14 @@ GDB, the GNU debugger, allows you to debug programs written in C, C++,
 Java, and other languages, by executing them in a controlled fashion
 and printing their data.
 
+%package sim
+Summary:  The GDB simulator for the moxie core
+Group:    Development/Debuggers
+
+%description sim
+The sim package includes the standalone GDB simulator for the moxie core.
+%endif
+
 %prep
 %setup -q -n binutils-gdb
 %patch0 -p1
@@ -48,7 +56,7 @@ CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install-gdb DESTDIR=$RPM_BUILD_ROOT
+make install-gdb install-sim DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_datadir/gdb*
 rm -rf $RPM_BUILD_ROOT%_infodir
@@ -58,14 +66,18 @@ rm -rf $RPM_BUILD_ROOT%_includedir
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
+%exclude %{_bindir}/*-run
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %doc COPYING*
 
+%files sim
+%defattr(-,root,root,-)
+%{_bindir}/*-run
+%doc COPYING*
 
 %changelog
 * @DATE@ Anthony Green <green@moxielogic.com> @VERSION@-1

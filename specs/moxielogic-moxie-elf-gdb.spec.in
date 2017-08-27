@@ -5,7 +5,6 @@ Name:		moxielogic-moxie-elf-gdb
 Version:	@VERSION@
 Release:	0.@BUILDNUM@
 Summary:	A GNU source-level debugger for C, C++ and other languages on the moxie core
-
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Group:          Development/Debuggers
 URL:		http://moxielogic.org
@@ -27,6 +26,14 @@ Group:    Development/Debuggers
 
 %description common
 Common files between different moxie ports of gdb.
+
+%package sim
+Summary:  The GDB simulator for the moxie core
+Group:    Development/Debuggers
+
+%description sim
+The sim package includes the standalone GDB simulator for the moxie core.
+%endif
 
 %prep
 %setup -q -n binutils-gdb
@@ -56,7 +63,7 @@ CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install-gdb DESTDIR=$RPM_BUILD_ROOT
+make install-gdb install-sim DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%_datadir/locale
 rm -rf $RPM_BUILD_ROOT%_infodir
 rm -rf $RPM_BUILD_ROOT%_libdir/*.a
@@ -65,12 +72,17 @@ rm -rf $RPM_BUILD_ROOT%_includedir
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %files
 %defattr(-,root,root,-)
 %{_bindir}/*
+%exclude %{_bindir}/*-run
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%doc COPYING*
+
+%files sim
+%defattr(-,root,root,-)
+%{_bindir}/*-run
 %doc COPYING*
 
 %files common
