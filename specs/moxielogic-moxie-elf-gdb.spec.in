@@ -33,7 +33,6 @@ Group:    Development/Debuggers
 
 %description sim
 The sim package includes the standalone GDB simulator for the moxie core.
-%endif
 
 %prep
 %setup -q -n binutils-gdb
