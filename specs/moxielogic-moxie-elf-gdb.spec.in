@@ -10,6 +10,7 @@ Group:          Development/Debuggers
 URL:		http://moxielogic.org
 Source0:	moxie-gdb.tar.gz
 Patch0:         gdb-no-dtb.patch
+Patch1:         moxie-sim-halt-fix.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	python-devel texinfo zlib-devel ncurses-devel flex bison
 BuildRequires:  libstdc++-static glibc-static
@@ -37,6 +38,7 @@ The sim package includes the standalone GDB simulator for the moxie core.
 %prep
 %setup -q -n binutils-gdb
 %patch0 -p1
+%patch1 -p1
 
 %build
 CFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
