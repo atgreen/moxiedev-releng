@@ -59,6 +59,7 @@ CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
 		   --mandir=%_mandir \
 		   --infodir=%_infodir \
 		   --enable-shared \
+		   --enable-tui \
 		   --target=moxie-elf
 %__make tooldir=%_prefix all info
 
