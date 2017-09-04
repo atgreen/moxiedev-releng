@@ -61,6 +61,7 @@ LIBS="-lncurses -ltinfo" \
 		   --enable-tui \
 		   --target=moxie-elf
 %__make tooldir=%_prefix all info
+cat gdb/config.log
 
 %install
 rm -rf $RPM_BUILD_ROOT
