@@ -6,14 +6,17 @@ FROM docker.io/centos:7
 
 MAINTAINER green@moxielogic.org
 
+ADD libs/* /tmp/
+
 RUN yum clean all \
     && yum -y update \
     && yum -y install gcc gcc-c++ rpm-build make patch autoconf \
        	      automake gmp-devel gmp-static flex \
-	      bison zlib-devel python-devel texinfo ncurses-devel \
+	      bison zlib-devel python-devel texinfo \
+	      ncurses-devel ncurses-static zlib-static \
 	      createrepo gperf glibc-static libstdc++-static \
     && yum clean all
 
-RUN cd /tmp && tar xvf /opt/mpfr* && cd /tmp/mpfr* && ./configure --prefix=/usr && make && make install && rm -rf /tmp/mpfr* 
-RUN cd /tmp && tar xvf /opt/mpc* && cd /tmp/mpc* && ./configure --prefix=/usr && make && make install && rm -rf /tmp/mpc*
+RUN cd /tmp/mpfr* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/mpfr* 
+RUN cd /tmp/mpc* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/mpc*
 
