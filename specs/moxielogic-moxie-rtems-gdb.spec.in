@@ -52,8 +52,7 @@ LIBS="-lncurses -ltinfo" \
 		   --infodir=%_infodir \
 		   --enable-shared \
 		   --target=moxie-rtems
-%__make tooldir=%_prefix all info
-cat gdb/config.log
+LIBS="-lncurses -ltinfo" %__make tooldir=%_prefix all info
 
 %install
 rm -rf $RPM_BUILD_ROOT
