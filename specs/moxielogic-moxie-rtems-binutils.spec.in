@@ -46,7 +46,7 @@ CXXFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
 		   --sharedstatedir=%_sharedstatedir \
 		   --mandir=%_mandir \
 		   --infodir=%_infodir \
-		   --enable-shared \
+		   --disable-shared \
 		   --target=moxie-rtems
 %__make tooldir=%_prefix all info
 
@@ -65,7 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/*
 %{_prefix}/moxie-rtems
-%{_prefix}/*/moxie-rtems
 %{_mandir}/man1/*
 %doc COPYING*
 
