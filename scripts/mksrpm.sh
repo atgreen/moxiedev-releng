@@ -65,7 +65,6 @@ tar \
   --exclude zlib \
   --exclude libffi \
   --exclude libmudflap \
-  --exclude fortran \
   --exclude boehm-gc \
   --exclude libgfortran \
   --exclude ada \
