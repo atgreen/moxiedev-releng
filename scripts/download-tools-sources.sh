@@ -2,7 +2,7 @@
 
 # download-tools-sources.sh
 #
-# Copyright (c) 2012, 2013, 2014, 2016  Anthony Green
+# Copyright (c) 2012, 2013, 2014, 2016, 2020  Anthony Green
 # 
 # The above named program is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License
@@ -28,7 +28,7 @@ RETRIES=$RETRY_MAX
 DELAY=10
 COUNT=1
 while [ $COUNT -lt $RETRIES ]; do
-  git clone http://sourceware.org/git/binutils-gdb.git
+  git clone --depth=1 http://sourceware.org/git/binutils-gdb.git
   if [ $? -eq 0 ]; then
       RETRIES=0
       break
@@ -42,7 +42,8 @@ RETRIES=$RETRY_MAX
 DELAY=10
 COUNT=1
 while [ $COUNT -lt $RETRIES ]; do
-  svn checkout svn://gcc.gnu.org/svn/gcc/trunk gcc
+  #  svn checkout svn://gcc.gnu.org/svn/gcc/trunk gcc
+  git clone --depth=1 https://gcc.gnu.org/git/gcc.git
   if [ $? -eq 0 ]; then
       RETRIES=0
       break
