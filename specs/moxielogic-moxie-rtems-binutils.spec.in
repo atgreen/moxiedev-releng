@@ -10,6 +10,7 @@ Group:		Development/Tools
 License:	GPL
 URL:		http://moxielogic.org
 Source0:	moxie-binutils.tar.gz
+Patch0:         objcopy.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	texinfo bison flex zlib-devel
 BuildRequires:  libstdc++-static glibc-static
@@ -27,6 +28,7 @@ addresses to file and line).
 
 %prep
 %setup -q -n binutils-gdb
+%patch0 -p1
 
 %build
 CFLAGS="%optflags -static -static-libgcc -static-libstdc++" \
