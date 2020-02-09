@@ -53,6 +53,7 @@ tar \
   --exclude binutils-gdb/ld \
   --exclude binutils-gdb/gold \
   --exclude binutils-gdb/gprof \
+  --exclude binutils-gdb/gdbserver \
   -czf dist/moxie-gdb.tar.gz binutils-gdb
 
 (cd gcc; ./contrib/gcc_update --touch)
