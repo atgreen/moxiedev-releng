@@ -76,6 +76,8 @@ tar \
 tar \
   --exclude .git \
   --exclude binutils-gdb/gdb \
+  --exclude binutils-gdb/gdbserver \
+  --exclude binutils-gdb/gdbsupport \
   --exclude binutils-gdb/sim \
   --exclude binutils-gdb/readline \
   --exclude binutils-gdb/libdecnumber \
