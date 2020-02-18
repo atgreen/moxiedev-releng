@@ -22,7 +22,7 @@ before_install:
   - docker build -f Dockerfile.builder-el7 -t atgreen/moxielogic-builder-el7 .
 
 script:
-  -
+  - ls -l
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
