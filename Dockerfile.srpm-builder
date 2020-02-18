@@ -1,4 +1,4 @@
-FROM docker.io/fedora:24
+FROM docker.io/fedora:31
 
 MAINTAINER green@moxielogic.org
 
