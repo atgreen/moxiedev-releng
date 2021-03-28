@@ -1,0 +1,25 @@
+# Base image for the el8 builder.  Build this manually and upload to
+# docker hub in order to avoid build time dependencies on CentOS
+# repos.
+
+FROM quay.io/centos/centos:stream8
+
+MAINTAINER green@moxielogic.org
+
+ADD libs/* /tmp/
+
+RUN dnf clean all \
+    && dnf -y update \
+    && dnf config-manager --set-enabled powertools
+
+RUN dnf -y install gcc gcc-c++ rpm-build make patch autoconf \
+       	      automake flex \
+              bison zlib-devel python3-devel texinfo \
+              zlib-static \
+	      createrepo gperf glibc-static libstdc++-static \
+    && dnf clean all
+
+RUN cd /tmp/gmp* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/gmp*
+RUN cd /tmp/mpfr* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/mpfr*
+RUN cd /tmp/mpc* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/mpc*
+RUN cd /tmp/ncurses* && ./configure --prefix=/usr --disable-shared && make && make install && rm -rf /tmp/ncurses*
